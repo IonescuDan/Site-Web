@@ -1,0 +1,17 @@
+Magazin online
+
+Cerinte: 
+-pentru a putea accesa site-ul utilizatorul trebuie sa-si acceseze 
+contul personal.
+-in caz ca nu are asa ceva trebuie sa poata sa-si creeze unul.
+-utilizatorul odata logat trebuie sa aibe la dispozitie un cos de 
+cumparaturi in care sa poata adauga sau elimina produse.
+-produsele din cos pot fi vizualizate oricand 
+-fiecare produs trebuie sa aibe descriere si poza corespunzatoare
+-utilizatorii pot scrie pareri despre fiecare produs
+
+Specificatii:
+-pentru realizarea bazelor de date ale conturilor create si 
+produselor se va folosi mysql.
+-se va realiza un meniu pentru afisarea produselor utilizand PHP si CSS
+
