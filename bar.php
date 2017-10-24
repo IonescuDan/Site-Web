@@ -5,7 +5,7 @@
     $catres = mysqli_query($db, $catsql);
     while($catrow = mysqli_fetch_assoc($catres))
     {
-        echo "<li><a href='" . $config_basedir. "products.php?id=" . $catrow['id'] . "'>". $catrow['name'] . "</a></li>";
+        echo "<li><a href='" . "products.php?id=" . $catrow['id'] . "'>". $catrow['name'] . "</a></li>";
     }
     ?>
 </ul>

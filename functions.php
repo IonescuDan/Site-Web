@@ -1,11 +1,13 @@
 <?php
 
 function pf_validate_number($value, $function, $redirect) {
+    $final = 1;
+    $error = 0;
     if(isset($value) == TRUE) {
         if(is_numeric($value) == FALSE) {
             $error = 1;
         }
-        if(@$error == 1) {
+        if($error == 1) {
             header("Location: " . $redirect);
         }
         else {
@@ -74,7 +76,7 @@ function showcart()
             $quantitytotal = $itemsrow['price'] * $itemsrow['quantity'];
             echo "<tr>";
             if(empty($itemsrow['image'])) {
-                echo "<td><img src='productimages/dummy.jpg' width='50' alt='" . $itemsrow['name'] . "'></td>";
+                echo "<td><img src='productimages/default.jpg' width='150' alt='" . $itemsrow['name'] . "'></td>";
             }
             else {
                 echo "<td><img src='productimages/" .$itemsrow['image'] . "' width='50' alt='". $itemsrow['name'] . "'></td>";

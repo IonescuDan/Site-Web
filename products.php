@@ -13,7 +13,7 @@ if($numrows == 0)
 else
 {
     echo "<table cellpadding='10'>";
-    while($prodrow = mysql_fetch_assoc($prodcatres))
+    while($prodrow = mysqli_fetch_assoc($prodcatres))
     {
         echo "<tr>";
         if(empty($prodrow['image'])) {
@@ -26,7 +26,7 @@ src='./productimages/default.jpg' alt='". $prodrow['name'] . "'></td>";
         echo "<td>";
         echo "<h2>" . $prodrow['name'] . "</h2>";
         echo "<p>" . $prodrow['description'];
-        echo "<p><strong>OUR PRICE: &pound;". sprintf('%.2f', $prodrow['price']) . "</strong>";
+        echo "<p><strong>OUR PRICE: ". sprintf('%.2f', $prodrow['price']) . ' lei' ."</strong>";
         echo "<p>[<a href='addtobasket.php?id=". $prodrow['id'] . "'>buy</a>]";
         echo "</td>";
         echo "</tr>";
