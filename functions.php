@@ -28,6 +28,8 @@ function pf_validate_number($value, $function, $redirect) {
 
 function showcart()
 {
+    require("config.php");
+
     if(isset($_SESSION['SESS_ORDERNUM']))
     {
         if(isset($_SESSION['SESS_LOGGEDIN']))
@@ -53,7 +55,7 @@ function showcart()
     }
     else
     {
-        $itemnumrows = 0;
+       $itemnumrows = 0;
     }
     if($itemnumrows == 0)
     {
@@ -83,8 +85,8 @@ function showcart()
             }
             echo "<td>" . $itemsrow['name'] . "</td>";
             echo "<td>" . $itemsrow['quantity'] . "</td>";
-            echo "<td><strong>&pound;" . sprintf('%.2f', $itemsrow['price']) . "</strong></td>";
-            echo "<td><strong>&pound;". sprintf('%.2f', $quantitytotal) . "</strong></td>";
+            echo "<td><strong>" . sprintf('%.2f', $itemsrow['price']) . " lei" . "</strong></td>";
+            echo "<td><strong>". sprintf('%.2f', $quantitytotal) . " lei" . "</strong></td>";
             echo "<td>[<a href='delete.php?id=". $itemsrow['itemid'] . "'>X</a>]</td>";
             echo "</tr>";
             @$total = $total + $quantitytotal;
@@ -96,7 +98,7 @@ function showcart()
         echo "<td></td>";
         echo "<td></td>";
         echo "<td>TOTAL</td>";
-        echo "<td><strong>&pound;". sprintf('%.2f', $total) . "</strong></td>";
+        echo "<td><strong>". sprintf('%.2f', $total) . " lei" . "</strong></td>";
         echo "<td></td>";
         echo "</tr>";
         echo "</table>";
