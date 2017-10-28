@@ -21,7 +21,7 @@ require("config.php");
 </div>
 <div id="menu">
     <a href="<?php echo $config_basedir; ?>">Home</a> -
-    <a href="<?php echo $config_basedir;?>showcart.php">View Cart/Checkout</a>
+    <a href="showcart.php">View Cart/Checkout</a>
 </div>
 <div id="container">
     <div id="bar">
