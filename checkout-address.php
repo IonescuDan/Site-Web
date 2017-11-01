@@ -1,4 +1,5 @@
 <?php
+
 	session_start();
 	require("config.php");
 	$statussql = "SELECT status FROM orders WHERE id = " .$_SESSION['SESS_ORDERNUM'];
