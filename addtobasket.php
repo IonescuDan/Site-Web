@@ -41,7 +41,7 @@ else
         $totalprice = $prodrow['price'] * $_POST['amountBox'] ;
         $updsql = "UPDATE orders SET total = total + ". $totalprice . " WHERE id = ". $_SESSION['SESS_ORDERNUM'] . ";";
         mysqli_query($db, $updsql) or die(mysqli_error($db));
-        header("Location: showcart.php");
+        header("Location:" . $config_basedir . "showcart.php");
     }
     else
     {

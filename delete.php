@@ -14,7 +14,7 @@ $prodrow = mysqli_fetch_assoc($prodres);
 $sql = "DELETE FROM orderitems WHERE id = " . $_GET['id'];
 $del=mysqli_query($db,$sql)or die(mysqli_error($db));;
 if($del){
-    header("Location: showcart.php");
+    header("Location:" . $config_basedir . "showcart.php");
 }
 require('footer.php');
 ?>

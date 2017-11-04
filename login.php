@@ -1,6 +1,7 @@
 <?php
 session_start();
 require("config.php");
+
 if(isset($_SESSION['SESS_LOGGEDIN'])) {
     header("Location: " . $config_basedir);
 }
@@ -25,7 +26,8 @@ if(isset($_POST['submit']))
     }
     else
     {
-        header("Location: http://" .$_SERVER['HTTP_HOST']. $_SERVER['SCRIPT_NAME'] . "?error=1");
+        //header("Location: http://" .$_SERVER['HTTP_HOST']. $_SERVER['SCRIPT_NAME'] . "?error=1");
+        require("adminlogin.php");
     }
 }
 
