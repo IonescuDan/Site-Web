@@ -4,14 +4,14 @@
 	require("functions.php");
 
 	if(isset($_SESSION['SESS_ADMINLOGGEDIN']) == FALSE) {
-		header("Location: " . $basedir);
+		header("Location: " . $config_basedir);
 	}
 	
 	$validid = pf_validate_number($_GET['id'],"redirect", $config_basedir . "adminorders.php");
 	require("header.php");
 	
 	echo "<h1>Order Details</h1>";
-	echo "<a href='adminorders.php'><— go back to the main orders screen</a>";
+	echo "<a href='adminorders.php'><— Go back to the main orders screen</a>";
 	$ordsql = "SELECT * from orders WHERE id = " . $validid;
 	$ordres = mysqli_query($db,$ordsql);
 	$ordrow = mysqli_fetch_assoc($ordres);
@@ -45,22 +45,12 @@
 	$addrow = mysqli_fetch_assoc($addres);
 	echo "<table cellpadding=10>";
 	echo "<tr>";
+	echo "<td><strong>Customer name</strong></td>";
+	echo "<td>" . $addrow['firstname'] . " ". $addrow['lastname'] . "<br>";
+	echo "<tr>";
 	echo "<td><strong>Address</strong></td>";
-	echo "<td>" . $addrow['forname'] . " ". $addrow['surname'] . "<br>";
-	echo $addrow['add1'] . "<br>";
-	echo $addrow['add2'] . "<br>";
-	echo $addrow['add3'] . "<br>";
-	echo $addrow['postcode'] . "<br>";
+	echo "<td>" . $addrow['address'] . ", ". $addrow['postcode'] . "<br>";
 	echo "<br>";
-	
-	if($ordrow['delivery_add_id'] == 0)
-	{
-		echo "<i>Address from member account</i>";
-	}
-	else
-	{
-		echo "<i>Different delivery address</i>";
-	}
 	
 	echo "</td></tr>";
 	echo "<tr><td><strong>Phone</strong></td><td>". $addrow['phone'] . "</td></tr>";
@@ -78,13 +68,13 @@
 	echo "<th>Quantity</th>";	
 	echo "<th>Price</th>";
 	echo "<th>Total</th>";
-
+	$total = 0;
 	while($itemsrow = mysqli_fetch_assoc($itemsres))
 	{
 		$quantitytotal = $itemsrow['price']* $itemsrow['quantity'];
 		echo "<tr>";
 		if(empty($itemsrow['image'])) {
-		echo "<td><img src='./productimages/default.jpg' width='50' alt='". $itemsrow['name'] . "'></td>";
+		echo "<td><img src='./productimages/default.jpg' width='150' alt='". $itemsrow['name'] . "'></td>";
 	}
 	else
 	{
@@ -93,10 +83,10 @@
 
 	echo "<td>" . $itemsrow['name'] . "</td>";
 	echo "<td>" . $itemsrow['quantity'] . " x </td>";
-	echo "<td><strong>&pound;" . sprintf('%.2f',$itemsrow['price']) . "</strong></td>";
-	echo "<td><strong>&pound;" . sprintf('%.2f',$quantitytotal) . "</strong></td>";
+	echo "<td><strong>" . sprintf('%.2f',$itemsrow['price']) . " lei </strong></td>";
+	echo "<td><strong>" . sprintf('%.2f',$quantitytotal) . " lei </strong></td>";
 	echo "</tr>";
-	@$total = $total + $quantitytotal;
+	$total = $total + $quantitytotal;
 	}
 
 	echo "<tr>";
@@ -104,7 +94,7 @@
 	echo "<td></td>";
 	echo "<td></td>";
 	echo "<td>TOTAL</td>";
-	echo "<td><strong>&pound;" . sprintf('%.2f', $total). "</strong></td>";
+	echo "<td><strong>" . sprintf('%.2f', $total). " lei" . "</strong></td>";
 	echo "</tr>";
 	echo "</table>";
 	require("footer.php");

@@ -8,7 +8,7 @@ if(isset($_SESSION['SESS_LOGGEDIN'])) {
 
 if(isset($_POST['submit']))
 {
-    $loginsql = "SELECT * FROM logins WHERE username = '" . $_POST['userBox']. "' AND password = '" . sha1($_POST['passBox']) . "'";
+    $loginsql = "SELECT * FROM customers WHERE username = '" . $_POST['userBox']. "' AND password = '" . sha1($_POST['passBox']) . "'";
     $loginres = mysqli_query($db, $loginsql);
     $numrows = mysqli_num_rows($loginres);
     if($numrows == 1)
@@ -36,7 +36,7 @@ else
     require("header.php");
     ?>
     <h1>Customer Login</h1>
-    Please enter your username and password to log into the websites. If you do not have an account, you can get one for free by <a href="register.php">registering</a>.
+    Please enter your username and password to log into the websites. If you do not have an account, you can get one for free by <a href="register.php"><b>registering</b></a>.
     <p>
         <?php
         if(isset($_GET['error'])) {

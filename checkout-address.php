@@ -18,13 +18,11 @@ if(isset($_POST['submit']))
 {
     if(isset($_SESSION['SESS_LOGGEDIN']))
     {
-        if($_POST['addselecBox'] == 2)
+        if($_POST['addselectBox'] == 2)
         {
             if(empty($_POST['firstnameBox']) ||
-                empty($_POST['nameBox']) ||
-                empty($_POST['add1Box']) ||
-                empty($_POST['add2Box']) ||
-                empty($_POST['add3Box']) ||
+                empty($_POST['lastnameBox']) ||
+                empty($_POST['addressBox']) ||
                 empty($_POST['postcodeBox']) ||
                 empty($_POST['phoneBox']) ||
                 empty($_POST['emailBox']))
@@ -33,7 +31,7 @@ if(isset($_POST['submit']))
                 header("Location: " . $config_basedir . "checkout-address.php?error=1");
                 exit;
             }
-            $addsql = "INSERT INTO delivery_addresses(firstname, name, add1, add2, add3, postcode, phone, email)VALUES('" . strip_tags(addslashes( $_POST['firstnameBox'])) . "', '" . strip_tags(addslashes( $_POST['surnameBox'])) . "', '" . strip_tags(addslashes( $_POST['add1Box'])) . "', '" . strip_tags(addslashes( $_POST['add2Box'])) . "', '" . strip_tags(addslashes( $_POST['add3Box'])) . "', '" . strip_tags(addslashes( $_POST['postcodeBox'])) . "', '" . strip_tags(addslashes(
+            $addsql = "INSERT INTO delivery_addresses(firstname, lastname, address, postcode, phone, email)VALUES('" . strip_tags(addslashes( $_POST['firstnameBox'])) . "', '" . strip_tags(addslashes( $_POST['lastnameBox'])) . "', '" . strip_tags(addslashes( $_POST['addressBox'])) . "', '" . strip_tags(addslashes( $_POST['postcodeBox'])) . "', '" . strip_tags(addslashes(
                     $_POST['phoneBox'])) . "', '" . strip_tags(addslashes($_POST['emailBox'])) . "')";
             mysqli_query($db,$addsql);
             $setaddsql = "UPDATE orders SET delivery_add_id = " . mysqli_insert_id() . ", status = 1 WHERE id = " . $_SESSION['SESS_ORDERNUM'];
@@ -42,6 +40,9 @@ if(isset($_POST['submit']))
         }
         else
         {
+            $addsql = "INSERT INTO delivery_addresses(firstname, lastname, address, postcode, phone, email)
+                      SELECT firstname, lastname, address, postcode, phone, email FROM customers";
+            mysqli_query($db,$addsql);
             $custsql = "UPDATE orders SET delivery_add_id = 0, status = 1 WHERE id = " . $_SESSION['SESS_ORDERNUM'];
             mysqli_query($db,$custsql);
             header("Location: " . $config_basedir . "checkout-pay.php");
@@ -50,20 +51,18 @@ if(isset($_POST['submit']))
     else
     {
         if(empty($_POST['firstnameBox']) ||
-            empty($_POST['nameBox']) ||
-            empty($_POST['add1Box']) ||
-            empty($_POST['add2Box']) ||
-            empty($_POST['add3Box']) ||
+            empty($_POST['lastnameBox']) ||
+            empty($_POST['addressBox']) ||
             empty($_POST['postcodeBox']) ||
             empty($_POST['phoneBox']) ||
             empty($_POST['emailBox']))
 
         {
-            header("Location: " . "checkout-address.php?error=1");
+            header("Location: " . $config_basedir . "checkout-address.php?error=1");
             exit;
         }
 
-        $addsql = "INSERT INTO delivery_addresses(firstname, name, add1, add2, add3, postcode, phone, email) VALUES('" . $_POST['firstnameBox'] . "', '" . $_POST['nameBox'] . "', '" . $_POST['add1Box'] . "', '" . $_POST['add2Box'] . "', '" . $_POST['add3Box'] . "', '" . $_POST['postcodeBox'] . "', '" . $_POST['phoneBox'] . "', '" . $_POST['emailBox'] . "')";
+        $addsql = "INSERT INTO delivery_addresses(firstname, lastname, address, postcode, phone, email) VALUES('" . $_POST['firstnameBox'] . "', '" . $_POST['lastnameBox'] . "', '" . $_POST['addressBox'] . "', '" . $_POST['postcodeBox'] . "', '" . $_POST['phoneBox'] . "', '" . $_POST['emailBox'] . "')";
         mysqli_query($db,$addsql);
         $setaddsql = "UPDATE orders SET delivery_add_id = " . mysqli_insert_id() . ", status = 1 WHERE session = '" . session_id() . "'";
         mysqli_query($db,$setaddsql);
@@ -86,52 +85,46 @@ else
     {
         ?>
 
-        <input type="radio" name="addselecBox" value="1" checked>Use the address from my account</input><br>
-        <input type="radio" name="addselecBox" value="2">Use the address below:</input>
+        <input type="radio" name="addselectBox" value="1" checked>Use the address from my account</input><br>
+        <input type="radio" name="addselectBox" value="2" >Use the address below:</input>
 
         <?php
     }
     ?>
 
     <table>
+
         <tr>
             <td>Firstname</td>
-            <td><input type="text" name="firstnameBox"></td>
+            <td><input type="text" name="firstnameBox" title=""></td>
         </tr>
         <tr>
-            <td>Name</td>
-            <td><input type="text" name="nameBox"></td>
+            <td>Lastname</td>
+            <td><input type="text" name="lastnameBox" title=""></td>
         </tr>
         <tr>
-            <td>House Number, Street</td>
-            <td><input type="text" name="add1Box"></td>
+            <td>Address</td>
+            <td><input type="text" name="addressBox" title=""></td>
         </tr>
         <tr>
-            <td>Town/City</td>
-            <td><input type="text" name="add2Box"></td>
-        </tr>
-        <tr>
-            <td>County</td>
-            <td><input type="text" name="add3Box"></td>
-        </tr>
         <tr>
             <td>Postcode</td>
-            <td><input type="text" name="postcodeBox"></td>
+            <td><input type="text" name="postcodeBox" title=""></td>
         </tr>
         <tr>
             <td>Phone</td>
-            <td><input type="text" name="phoneBox"></td>
+            <td><input type="text" name="phoneBox" title=""></td>
         </tr>
         <tr>
             <td>Email</td>
-            <td><input type="text" name="emailBox"></td>
+            <td><input type="text" name="emailBox" title=""></td>
         </tr>
         <tr>
             <td></td>
             <td><input type="submit" name="submit" value="Add Address (press only once)"></td>
         </tr>
     </table>
-    </form>
+
     <?php
 }
 
