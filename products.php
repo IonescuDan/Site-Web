@@ -28,6 +28,7 @@ src='./productimages/default.jpg' alt='". $prodrow['name'] . "'></td>";
         echo "<p>" . $prodrow['description'];
         echo "<p><strong>OUR PRICE: ". sprintf('%.2f', $prodrow['price']) . ' lei' ."</strong>";
         echo "<p>[<a href='addtobasket.php?id=". $prodrow['id'] . "'>buy</a>]";
+        echo "[<a href='comments.php?id=". $prodrow['id'] . "'>reviews</a>]";
         echo "</td>";
         echo "</tr>";
     }
