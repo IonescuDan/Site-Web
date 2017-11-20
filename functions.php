@@ -134,7 +134,7 @@ function getComments($db){
                 <input type='hidden' name='cid' value='".$row['cid']."'>
                 <button type = 'submit' name = 'commentDelete'>Delete</button>
             </form>
-            <form class='edit-form' method='POST' action='editcomments.php'>
+            <form class='edit-form' method='POST' action='editcomments.php?'>
                 <input type='hidden' name='cid' value='".$row['cid']."'>
                 <input type='hidden' name='uid' value='".$row['uid']."'>
                 <input type='hidden' name='date' value='".$row['date']."'>

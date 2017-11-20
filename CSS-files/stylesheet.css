@@ -84,7 +84,6 @@ img {
     padding: 10px;
     margin-right: 30px;
     height: 100%;
-    position fixed;
     overflow: auto;
 }
 #bar h1 {
@@ -209,3 +208,4 @@ img {
 .delete-form button:hover{
     opacity: 1;
 }
+

@@ -50,7 +50,7 @@ else
         echo "<table cellpadding='10'>";
         echo "<tr>";
         if(empty($prodrow['image'])) {
-            echo "<td><imgsrc='productimages/dummy.jpg' width='50' alt='". $prodrow['name'] . "'></td>";
+            echo "<td><img src='productimages/default.jpg' width='50' alt='". $prodrow['name'] . "'></td>";
         }
         else {
             echo "<td>

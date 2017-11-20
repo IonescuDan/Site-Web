@@ -21,7 +21,7 @@ else
 src='./productimages/default.jpg' alt='". $prodrow['name'] . "'></td>";
         }
         else {
-            echo "<td><img src='./productimages/" . $prodrow['image']. "' alt='". $prodrow['name'] . "'></td>";
+            echo "<td><img height='150' width='150' src='./productimages/" . $prodrow['image']. "' alt='". $prodrow['name'] . "'></td>";
         }
         echo "<td>";
         echo "<h2>" . $prodrow['name'] . "</h2>";
@@ -29,6 +29,9 @@ src='./productimages/default.jpg' alt='". $prodrow['name'] . "'></td>";
         echo "<p><strong>OUR PRICE: ". sprintf('%.2f', $prodrow['price']) . ' lei' ."</strong>";
         echo "<p>[<a href='addtobasket.php?id=". $prodrow['id'] . "'>buy</a>]";
         echo "[<a href='comments.php?id=". $prodrow['id'] . "'>reviews</a>]";
+        if(@$_SESSION['SESS_ADMINLOGGEDIN'] == 1) {
+            echo "[<a href='deleteproduct.php?id=" . $prodrow['id'] . "'>delete</a>]";
+        }
         echo "</td>";
         echo "</tr>";
     }
